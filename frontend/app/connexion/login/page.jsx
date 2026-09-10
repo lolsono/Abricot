@@ -1,7 +1,33 @@
+"use client";
+
 import Image from "next/image";
 import styles from "./login.module.css";
+import { useRouter } from "next/navigation";
+import { login } from "@/services/auth.services";
 
 export default function Connexion() {
+    const router = useRouter();
+
+    async function handleSubmit(event) {
+        event.preventDefault();
+
+        const formData = new FormData(event.currentTarget);
+
+        const email = formData.get("email");
+        const password = formData.get("password");
+
+        try {
+            const data = await login(email, password);
+
+            console.log("Utilisateur connecté :", data);
+
+            router.push("/");
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     return (
         <main className={styles.page}>
             <div className={styles.container}>
@@ -23,7 +49,7 @@ export default function Connexion() {
 
                         <h1>Connexion</h1>
 
-                        <form>
+                        <form onSubmit={handleSubmit}>
 
                             <div className={styles.inputGroup}>
                                 <label htmlFor="email">
