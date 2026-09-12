@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 export async function GET(request) {
     try {
-        const token = request.cookies.get("token")?.value;
+        const token = request.cookies.get("auth_token")?.value;
 
         // Aucun token = utilisateur non authentifié
         if (!token) {

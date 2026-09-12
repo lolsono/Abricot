@@ -3,13 +3,22 @@
 import Image from "next/image";
 import styles from "./login.module.css";
 import { useRouter } from "next/navigation";
-import { login } from "@/services/auth.services";
+import { useState } from "react";
+import { useAuth } from "@/context/AuthContext";
+
+
 
 export default function Connexion() {
+
+    const { login, refreshUser } = useAuth();
     const router = useRouter();
+    const [errorMessage, setErrorMessage] = useState("");
 
     async function handleSubmit(event) {
+
         event.preventDefault();
+
+        setErrorMessage("");
 
         const formData = new FormData(event.currentTarget);
 
@@ -17,14 +26,14 @@ export default function Connexion() {
         const password = formData.get("password");
 
         try {
-            const data = await login(email, password);
 
-            console.log("Utilisateur connecté :", data);
-
+            await login(email, password);
+            await refreshUser();
             router.push("/");
 
         } catch (error) {
-            console.error(error);
+            console.error(error.message);
+            setErrorMessage(error.message);
         }
     }
 
@@ -75,6 +84,12 @@ export default function Connexion() {
                                 />
                             </div>
 
+                            {errorMessage && (
+                                <p className={styles.errorMessage}>
+                                    {errorMessage}
+                                </p>
+                            )}
+
                             <button
                                 type="submit"
                                 className={styles.loginButton}
@@ -103,7 +118,6 @@ export default function Connexion() {
 
                 </section>
 
-
                 {/* Partie droite */}
                 <section className={styles.imageSection}>
                     <Image
@@ -119,5 +133,3 @@ export default function Connexion() {
         </main>
     );
 }
-
-

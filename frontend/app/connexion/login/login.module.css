@@ -45,7 +45,7 @@
 
 .formContainer {
     width: 280px;
-    margin-top: 200px;
+    margin-top: 25%;
 }
 
 .formContainer h1 {
@@ -87,6 +87,14 @@
 
 .inputGroup input:focus {
     border-color: #e85b00;
+}
+
+/* Message erreure */
+
+.errorMessage {
+    margin-top: 0px;
+    margin-bottom: 10px;
+    color: red;
 }
 
 /* Bouton */

@@ -78,7 +78,7 @@ export async function POST(request) {
 
         // Création du cookie 7 jour
         nextResponse.cookies.set({
-            name: "token",
+            name: "auth_token",
             value: token,
             httpOnly: true,
             sameSite: "lax",
