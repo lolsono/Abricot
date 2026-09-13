@@ -33,7 +33,7 @@ export default function Navbar() {
     const handleLogout = () => {
         setMenuOpen(false);
         logout();
-        router.push("/login");
+        router.push("/connexion/login");
     };
 
     return (
@@ -70,7 +70,7 @@ export default function Navbar() {
                 {menuOpen && (
                     <div className={styles.userMenu}>
                         <Link
-                            href="/compte/profil"
+                            href="/compte"
                             className={styles.userMenuItem}
                             onClick={() => setMenuOpen(false)}
                         >

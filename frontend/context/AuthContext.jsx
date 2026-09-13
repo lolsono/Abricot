@@ -8,9 +8,7 @@ import {
 } from "react";
 
 import {
-    login as loginService,
-    getCurrentUser,
-} from "@/services/auth.services";
+    login as loginService, getCurrentUser, logoutService} from "@/services/auth.services";
 
 const AuthContext = createContext(null);
 
@@ -69,13 +67,15 @@ export function AuthProvider({ children }) {
 
     /*
      * Déconnexion
-     *
-     * On créera la vraie requête /logout
-     * ensuite.
      */
     async function logout() {
-
-        setUser(null);
+        try {
+            await logoutService();
+        } catch (error) {
+            console.error("Erreur lors de la déconnexion :", error);
+        } finally {
+            setUser(null);
+        }
     }
 
     const value = {
@@ -93,7 +93,6 @@ export function AuthProvider({ children }) {
         </AuthContext.Provider>
     );
 }
-
 
 /*
  * Hook permettant d'utiliser

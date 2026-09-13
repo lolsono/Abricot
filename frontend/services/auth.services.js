@@ -89,3 +89,17 @@ export async function getCurrentUser() {
         },
     };
 }
+
+/* Fonction de déconnexion */
+export async function logoutService() {
+    const response = await fetch("/api/auth/logout", {
+        method: "POST",
+        credentials: "include",
+    });
+
+    if (!response.ok) {
+        throw new Error("Erreur lors de la déconnexion");
+    }
+
+    return response.json();
+}
