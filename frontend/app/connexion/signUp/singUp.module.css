@@ -49,7 +49,7 @@
 }
 
 .formContainer h1 {
-    margin: 0 0 40px;
+    margin: 0 0 10px;
     text-align: center;
     font-family: Arial, sans-serif;
     font-size: 40px;
@@ -95,6 +95,7 @@
     margin-top: 0px;
     margin-bottom: 10px;
     color: red;
+    font-size: 13px;
 }
 
 /* Bouton */

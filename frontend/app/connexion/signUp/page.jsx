@@ -1,7 +1,41 @@
+"use client";
+
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import styles from "./singUp.module.css";
+import { useState } from "react";
+import { signUpServices } from "@/services/signUp.services";
+import { useAuth } from "@/context/AuthContext";
 
 export default function SignUp() {
+
+    const { refreshUser } = useAuth();
+    const router = useRouter();
+    const [errorMessage, setErrorMessage] = useState("");
+
+    async function handleSubmit(event) {
+
+        event.preventDefault();
+
+        setErrorMessage("");
+
+        const formData = new FormData(event.currentTarget);
+
+        const email = formData.get("email");
+        const password = formData.get("password");
+        const name = formData.get("name");
+
+        try {
+            await signUpServices(name, email, password);
+            await refreshUser();
+            router.push("/compte");
+
+        } catch (error) {
+            console.error(error.message);
+            setErrorMessage(error.message);
+        }
+    }
+
     return (
         <main className={styles.page}>
             <div className={styles.container}>
@@ -23,7 +57,19 @@ export default function SignUp() {
 
                         <h1>Inscription</h1>
 
-                        <form>
+                        <form onSubmit={handleSubmit}>
+
+                            <div className={styles.inputGroup}>
+                                <label htmlFor="name">
+                                    Name
+                                </label>
+
+                                <input
+                                    type="name"
+                                    id="name"
+                                    name="name"
+                                />
+                            </div>
 
                             <div className={styles.inputGroup}>
                                 <label htmlFor="email">
@@ -48,6 +94,12 @@ export default function SignUp() {
                                     name="password"
                                 />
                             </div>
+                            
+                            {errorMessage && (
+                                <p className={styles.errorMessage}>
+                                    {errorMessage}
+                                </p>
+                            )}
 
                             <button
                                 type="submit"
