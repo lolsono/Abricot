@@ -4,9 +4,9 @@ import styles from "./Footer.module.css";
 
 export default function Navbar() {
     return (
-        <div className={styles.footer}>
+        <footer className={styles.footer}>
             <Image src="/logo_Black.svg" alt="logo abricot en noir" width={102} height={13}/>
             <p>Abricot 2025</p>
-        </div>
+        </footer>
     );
 }

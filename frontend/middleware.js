@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 
 export function middleware(request) {
-
     const token = request.cookies.get("auth_token");
 
     if (!token) {
@@ -14,5 +13,8 @@ export function middleware(request) {
 }
 
 export const config = {
-    matcher: ["/compte/:path*"],
+    matcher: [
+        "/compte/:path*",
+        "/projet/:path*",
+    ],
 };

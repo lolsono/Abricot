@@ -1,0 +1,165 @@
+.selectGroup {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Label */
+.selectGroup label {
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #171717;
+}
+
+.selectGroup input {
+    width: 100%;
+    height: 40px;
+    padding: 0 10px;
+    box-sizing: border-box;
+    border: 1px solid #e5e8eb;
+    border-radius: 1px;
+    background-color: #ffffff;
+    color: #333333;
+    font-family: inherit;
+    font-size: 10px;
+    outline: none;
+}
+
+.selectGroup {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+}
+
+.selectGroup label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+}
+
+/* Champ de recherche */
+.selectGroup input {
+    width: 100%;
+    height: 42px;
+    padding: 0 14px;
+    border-radius: 3px;
+    background-color: #fff;
+    color: #333;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.selectGroup input::placeholder {
+    color: #999;
+}
+
+.selectGroup input:hover {
+    border-color: #bdbdbd;
+}
+
+.selectGroup input:focus {
+    border-color: #f28c28;
+}
+
+/* Liste des résultats */
+.selectGroup ul {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    margin: 4px 0 0;
+    padding: 6px 0;
+    list-style: none;
+    background-color: #fff;
+    border: 1px solid #e2e2e2;
+    border-radius: 8px;
+    box-shadow:0 8px 20px rgba(0, 0, 0, 0.08);
+    max-height: 220px;
+    overflow-y: auto;
+}
+
+.selectGroup li {
+    margin: 0;
+    padding: 0;
+}
+
+.selectGroup li button {
+    width: 100%;
+    padding: 10px 14px;
+    border: none;
+    background: transparent;
+    text-align: left;
+    color: #333;
+    font-size: 14px;
+    cursor: pointer;
+    transition:
+        background-color 0.15s ease;
+}
+
+.selectGroup li button:hover {
+    background-color: #f5f5ff;
+}
+
+.selectGroup li button:active {
+    background-color: #eeeeff;
+}
+
+/* Message de chargement */
+.selectGroup > div {
+    font-size: 13px;
+    color: #888;
+}
+
+/* Conteneur des utilisateurs sélectionnés */
+.selectGroup > div:last-child {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+/* Utilisateur sélectionné */
+.selectGroup > div:last-child span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 8px 6px 11px;
+    background-color: #D3590B;
+    border: 1px solid white;
+    border-radius: 20px;
+    color: white;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+/* Bouton supprimer */
+.selectGroup > div:last-child span button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background-color: transparent;
+    color: #777;
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+    transition:
+        background-color 0.15s ease,
+        color 0.15s ease;
+}
+
+.selectGroup > div:last-child span button:hover {
+    background-color: #dadaff;
+    color: #333;
+}
