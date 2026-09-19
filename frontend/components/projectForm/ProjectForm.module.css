@@ -49,6 +49,15 @@
     resize: none;
 }
 
+/* Message erreure */
+
+.errorMessage {
+    margin-top: 10px;
+    margin-bottom: 0px;
+    color: red;
+    font-size: 13px;
+}
+
 /* Bouton Ajouter */
 .submitButton {
     height: 50px;

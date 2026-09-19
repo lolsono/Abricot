@@ -1,44 +1,276 @@
 .containerProject {
-    height: 100vh;
     width: 100%;
-    padding-right: 100px;
-    padding-left: 100px;
-    margin-top: 50px;
+    min-height: 100vh;
+    padding: 40px 70px;
+    box-sizing: border-box;
+    background-color: #ffffff;
 }
 
-.containerProject h2 {
-    font-weight: 600;
-    font-size: 24px;
-}
 
-/* Container boutton */
-.containerButton {
+/* =========================
+   HEADER
+========================= */
+
+.headerProject {
     display: flex;
-    flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    color: black;
+    margin-bottom: 30px;
 }
 
-.containerButton button {
-    height: 50px;
-    width: 180px;
-    color: #fff;
-    cursor: pointer;
-    background-color: #222;
+.headerProject h2 {
+    margin: 0 0 5px 0;
+    color: #222222;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.headerProject p {
+    margin: 0;
+    color: #333333;
+    font-size: 13px;
+    font-weight: 400;
+}
+
+
+/* =========================
+   BOUTON
+========================= */
+
+.createButton {
+    padding: 10px 14px;
+    color: #ffffff;
+    background-color: #222222;
     border: none;
-    border-radius: 10px;
-    width: fit-content;
-    margin-top: 8px;
-    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
     font-family: inherit;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 400;
-    transition: background-color .2s, transform .1s;
+    transition: background-color 0.2s ease;
 }
 
-.containerButton p {
-    font-size: 18px;
-    font-weight: 400;
-    color: black;
+.createButton:hover {
+    background-color: #333333;
+}
+
+
+/* =========================
+   GRILLE
+========================= */
+
+.projectsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    width: 100%;
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.projectCard {
+    min-width: 0;
+    min-height: 172px;
+    padding: 16px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    border: 1px solid #e8e8e8;
+    border-radius: 6px;
+}
+
+
+/* =========================
+   HEADER CARD
+========================= */
+
+.projectHeader {
+    margin-bottom: 25px;
+}
+
+.projectHeader h3 {
+    margin: 0 0 5px 0;
+    color: #222222;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.projectHeader p {
+    margin: 0;
+    max-width: 100%;
+    color: #858585;
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+
+/* =========================
+   PROGRESSION
+========================= */
+
+.progressSection {
+    margin-bottom: 25px;
+}
+
+.progressHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    color: #777777;
+    font-size: 10px;
+}
+
+.progressBar {
+    width: 100%;
+    height: 4px;
+    overflow: hidden;
+    background-color: #e5e7e9;
+    border-radius: 10px;
+}
+
+.progressValue {
+    height: 100%;
+    background-color: #222222;
+    border-radius: 10px;
+}
+
+.tasks {
+    display: block;
+    margin-top: 5px;
+    color: #999999;
+    font-size: 10px;
+}
+
+
+/* =========================
+   EQUIPE
+========================= */
+
+.teamSection {
+    margin-top: auto;
+}
+
+.teamTitle {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    margin-bottom: 7px;
+    color: #777777;
+    font-size: 10px;
+}
+
+.teamMembers {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.memberWrapper {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+
+/* =========================
+   AVATARS
+========================= */
+
+.avatar,
+.avatarOwner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    font-size: 6px;
+    font-weight: 500;
+}
+
+.avatar {
+    color: #555555;
+    background-color: #e5e5e5;
+}
+
+.avatarOwner {
+    color: #a55d28;
+    background-color: #ffe4d0;
+}
+
+
+/* =========================
+   PROPRIETAIRE
+========================= */
+
+.ownerBadge {
+    padding: 4px 7px;
+    color: #a55d28;
+    background-color: #ffe4d0;
+    border-radius: 8px;
+    font-size: 6px;
+}
+
+
+/* =========================
+   MESSAGES
+========================= */
+
+.message {
+    color: #777777;
+    font-size: 12px;
+}
+
+.error {
+    color: #d9534f;
+    font-size: 12px;
+}
+
+.emptyState {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 150px;
+    color: #999999;
+    border: 1px dashed #dddddd;
+    border-radius: 6px;
+    font-size: 12px;
+}
+
+@media screen and (max-width: 1000px) {
+
+    .containerProject {
+        padding: 35px 40px;
+    }
+
+    .projectsGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+@media screen and (max-width: 650px) {
+
+    .containerProject {
+        padding: 25px 20px;
+    }
+
+    .headerProject {
+        align-items: flex-start;
+        flex-direction: column;
+
+        gap: 15px;
+    }
+
+    .createButton {
+        width: 100%;
+    }
+
+    .projectsGrid {
+        grid-template-columns: 1fr;
+    }
 }

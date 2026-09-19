@@ -1,22 +1,35 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import styles from "./ProjectForm.module.css";
 import UserSelector from "../autocompletion/autocompletion.js"
+import { createProject } from "@/services/projectServices";
 
-export default function ProjectForm({ onSubmit }) {
-    const [title, setTitle] = useState("");
+export default function ProjectForm() {
+
+    const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [contributors, setContributors] = useState([]);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [successMessage, setSuccessMessage] = useState("");
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    async function handleSubmit (event) {
 
-        onSubmit({
-            title,
-            description,
-            contributors,
-        });
+        event.preventDefault();
+        setErrorMessage("");
+        setSuccessMessage("");
+
+        try {
+            const contributorEmails = contributors.map(
+                (contributor) => contributor.email
+            );
+            await createProject(name, description, contributorEmails);
+             setSuccessMessage("Projet crée avec succès !");
+        } catch (error) {
+            console.error(error.message);
+            setErrorMessage(error.message);
+        }
     };
 
     return (
@@ -30,8 +43,8 @@ export default function ProjectForm({ onSubmit }) {
                 <input
                     id="title"
                     type="text"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                 />
             </div>
 
@@ -51,6 +64,18 @@ export default function ProjectForm({ onSubmit }) {
                 value={contributors}
                 onChange={setContributors}
             />
+
+            {errorMessage && (
+                <p className={styles.errorMessage}>
+                    {errorMessage}
+                </p>
+            )}
+
+            {successMessage && (
+                <p className={styles.successMessage}>
+                    {successMessage}
+                </p>
+            )}
 
             <button
                 type="submit"
