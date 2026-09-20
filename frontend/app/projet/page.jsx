@@ -3,9 +3,11 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./projet.module.css";
+import Image from "next/image";
 import Modal from "@/components/modal/Modal.js";
 import ProjectForm from "@/components/projectForm/ProjectForm.js";
 import { getProject } from "@/services/projectServices";
+import { getInitials } from "@/utils/utils";
 
 export default function Projet() {
     const router = useRouter();
@@ -35,23 +37,6 @@ export default function Projet() {
     const handleCreateProject = (data) => {
         console.log(data);
         setModalOpen(false);
-    };
-
-    const getInitials = (name) => {
-        if (!name) {
-            return "?";
-        }
-
-        const words = name.trim().split(/\s+/);
-
-        if (words.length >= 2) {
-            return (
-                words[0][0] +
-                words[words.length - 1][0]
-            ).toUpperCase();
-        }
-
-        return name.substring(0, 2).toUpperCase();
     };
 
     return (
@@ -149,46 +134,36 @@ export default function Projet() {
                                 <div className={styles.teamSection}>
 
                                     <div className={styles.teamTitle}>
-                                        <span>👥 Équipe</span>
+                                        <Image
+                                            src="/member_logo.svg"
+                                            alt="Abricot"
+                                            className={styles.logoMember}
+                                            width={11}
+                                            height={11}
+                                        />
+                                        <span>Équipe</span>
                                         <span>
-                                            ({project.members?.length || 0})
+                                            ({project.members?.length + 1 || 1})
                                         </span>
                                     </div>
 
                                     <div className={styles.teamMembers}>
 
-                                        {project.members?.map((member) => {
+                                        <div className={styles.avatarOwner}>
+                                            {getInitials(project.owner.name)}
+                                        </div>
+                                        <span className={styles.ownerBadge}>Propriétaire</span>
 
-                                            const isOwner =
-                                                member.role === "OWNER";
+                                        {project.members?.map((member) => {
 
                                             return (
                                                 <div
                                                     className={styles.memberWrapper}
                                                     key={member.id}
                                                 >
-
-                                                    <div
-                                                        className={
-                                                            isOwner
-                                                                ? styles.avatarOwner
-                                                                : styles.avatar
-                                                        }
-                                                    >
-                                                        {getInitials(
-                                                            member.user?.name
-                                                        )}
+                                                    <div className={styles.avatar}>
+                                                        {getInitials(member.user?.name)}
                                                     </div>
-
-                                                    {isOwner && (
-                                                        <span
-                                                            className={
-                                                                styles.ownerBadge
-                                                            }
-                                                        >
-                                                            Propriétaire
-                                                        </span>
-                                                    )}
 
                                                 </div>
                                             );

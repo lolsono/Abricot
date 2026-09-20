@@ -1,14 +1,9 @@
 .container {
     min-height: 100vh;
     box-sizing: border-box;
-
     padding: 28px 46px 50px;
-
-    background: #f8f9fb;
-
     color: #202124;
 }
-
 
 /* =========================================================
    HEADER PROJET
@@ -18,9 +13,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     gap: 30px;
-
     margin-bottom: 24px;
 }
 
@@ -41,23 +34,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
     flex-shrink: 0;
-
-    width: 28px;
-    height: 28px;
-
+    width: 32px;
+    height: 32px;
     padding: 0;
-
     border: 1px solid #e3e4e7;
     border-radius: 5px;
-
     background: #ffffff;
-
     color: #4e5157;
-
-    font-size: 14px;
-
     cursor: pointer;
 }
 
@@ -67,25 +51,35 @@
 
 .projectTitle {
     margin: 0;
-
     color: #202124;
-
-    font-size: 15px;
+    font-size: 20px;
     font-weight: 600;
-
     line-height: 1.3;
 }
 
 .projectDescription {
     margin: 5px 0 0;
-
     color: #858991;
-
-    font-size: 10px;
-
+    font-size: 13px;
     line-height: 1.4;
 }
 
+.containerButtonModif {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 7px;
+}
+
+/* edit bouton */
+.editButton {
+    cursor: pointer;
+    color: #D3590B;
+}
+
+.editButton:hover {
+    color: #e6722a;
+}
 
 /* =========================================================
    ACTIONS HEADER
@@ -94,31 +88,23 @@
 .projectActions {
     display: flex;
     align-items: center;
-
     gap: 7px;
-
     flex-shrink: 0;
 }
 
 .createTaskButton,
 .aiButton {
-    height: 32px;
-
+    height: 34px;
     padding: 0 13px;
-
     border-radius: 6px;
-
     font-size: 10px;
     font-weight: 500;
-
     cursor: pointer;
 }
 
 .createTaskButton {
     border: none;
-
     background: #202020;
-
     color: #ffffff;
 }
 
@@ -128,15 +114,52 @@
 
 .aiButton {
     border: none;
-
     background: #ed7115;
-
     color: #ffffff;
 }
 
 .aiButton:hover {
     background: #df650b;
 }
+
+/* =========================================================
+   CONTRIBUTOR
+========================================================= */
+
+.contributor {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 50px;
+    background-color: #F3F4F6;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    padding: 0px 15px;
+}
+
+.numberContributor {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+}
+
+.numberContributor {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.number {
+    font-size: 12px;
+    font-weight: 400;
+    color: #6B7280;
+}
+
+/* Tags proprio */
+
 
 
 /* =========================================================
@@ -145,17 +168,12 @@
 
 .tasksContainer {
     box-sizing: border-box;
-
     width: 100%;
-
     padding: 18px 42px 22px;
-
     background: #ffffff;
-
     border: 1px solid #e5e6e9;
     border-radius: 8px;
 }
-
 
 /* =========================================================
    HEADER TACHES
@@ -165,29 +183,22 @@
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
-
     gap: 20px;
-
     margin-bottom: 18px;
 }
 
 .tasksTitle {
     margin: 0;
-
     color: #202124;
-
     font-size: 13px;
     font-weight: 600;
 }
 
 .tasksSubtitle {
     margin: 4px 0 0;
-
     color: #858991;
-
     font-size: 9px;
 }
-
 
 /* =========================================================
    TOOLBAR
@@ -196,29 +207,26 @@
 .tasksToolbar {
     display: flex;
     align-items: center;
-
     gap: 7px;
 }
 
 .toolbarButton,
 .toolbarButtonActive {
     height: 30px;
-
     padding: 0 11px;
-
     border-radius: 6px;
-
     font-size: 9px;
-
     cursor: pointer;
 }
 
 .toolbarButton {
-    border: 1px solid #e4e5e8;
-
+    display: flex;
+    gap: 2px;
+    flex-direction: row;
+    align-items: center;
+    border: none;
     background: #ffffff;
-
-    color: #777b82;
+    color: #D3590B;
 }
 
 .toolbarButton:hover {
@@ -226,13 +234,14 @@
 }
 
 .toolbarButtonActive {
+    display: flex;
+    gap: 2px;
+    flex-direction: row;
+    align-items: center;
     border: 1px solid #f5d4c0;
-
     background: #fff0e8;
-
     color: #e97014;
 }
-
 
 /* =========================================================
    SELECT
@@ -356,30 +365,22 @@
 .taskTitleRow {
     display: flex;
     align-items: center;
-
     gap: 8px;
-
     flex-wrap: wrap;
 }
 
 .taskTitle {
     margin: 0;
-
     color: #202124;
-
     font-size: 11px;
     font-weight: 600;
-
     line-height: 1.4;
 }
 
 .taskDescription {
-    margin: 4px 0 0;
-
+    margin: 6px 0 0;
     color: #858991;
-
     font-size: 9px;
-
     line-height: 1.4;
 }
 
@@ -534,43 +535,29 @@
 .assigneesSection {
     display: flex;
     align-items: center;
-
     gap: 8px;
-
     padding: 0 16px 12px;
 }
 
 .assigneesLabel {
     flex-shrink: 0;
-
     color: #858991;
-
     font-size: 8px;
 }
 
 .assignees {
     display: flex;
     align-items: center;
-
-    gap: 6px;
-
     flex-wrap: wrap;
 }
 
 .assignee {
     display: flex;
     align-items: center;
-
     gap: 5px;
-
     padding: 3px 8px 3px 3px;
-
-    background: #f1f2f4;
-
     border-radius: 12px;
-
     color: #62666d;
-
     font-size: 8px;
 }
 
@@ -578,29 +565,61 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
     width: 18px;
     height: 18px;
-
     flex-shrink: 0;
-
     border-radius: 50%;
-
-    background: #dfe1e5;
-
-    color: #5f636a;
-
+    background: #E5E7EB;
+    color: #0F0F0F;
     font-size: 7px;
-    font-weight: 600;
+    font-weight: 400;
 }
 
 .assigneeName {
-    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 18px;
+    border-radius: 50px;
+    background: #E5E7EB;
+    color: #6B7280;
+    font-size: 7px;
+    font-weight: 400;
+    padding: 7px 10px;
+}
+
+/* Name + avatar orange */
+.avatarOrange {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #FFE8D9;
+    color: #0F0F0F;
+    font-size: 7px;
+    font-weight: 400;
+}
+
+.assigneeNameOrange {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 18px;
+    border-radius: 50px;
+    background: #FFE8D9;
+    color: #D3590B;
+    font-size: 7px;
+    font-weight: 400;
+    padding: 7px 10px;
 }
 
 .noAssignee {
     color: #9a9da3;
-
     font-size: 8px;
 }
 
@@ -755,5 +774,16 @@
     .taskTitleRow {
         align-items: flex-start;
         flex-direction: column;
+    }
+
+    /* Contributor */
+
+    .contributor {
+        height: auto;
+        width: 100%;
+        flex-direction: column;
+        justify-content: center;
+        padding: 20px;
+        gap: 5px;
     }
 }

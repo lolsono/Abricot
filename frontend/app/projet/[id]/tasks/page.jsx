@@ -4,16 +4,22 @@ import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { getProjectById } from "@/services/projectServices";
 import { getProjectTasks } from "@/services/taskServices";
+import { useAuth } from "@/context/AuthContext";
 import styles from "./tasks.module.css";
+import Image from "next/image";
+import { getInitials } from "@/utils/utils";
 
 export default function TasksPage() {
     const { id } = useParams();
     const router = useRouter();
-
     const [project, setProject] = useState(null);
     const [tasks, setTasks] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const { user } = useAuth();
+
+    /* pour edit boutton */
+    const isOwner = project?.owner?.id != null && project.owner.id === user?.id;
 
     useEffect(() => {
 
@@ -31,10 +37,7 @@ export default function TasksPage() {
                 setTasks(tasksResult.data?.tasks || []);
             } catch (err) {
                 console.error(err);
-                setError(
-                    err.message ||
-                        "Impossible de récupérer les informations du projet."
-                );
+                setError(err.message ||"Impossible de récupérer les informations du projet.");
             } finally {
                 setLoading(false);
             }
@@ -45,22 +48,10 @@ export default function TasksPage() {
         }
     }, [id]);
 
-    const priorityLabels = {
-        LOW: "Basse",
-        MEDIUM: "Moyenne",
-        HIGH: "Haute",
-    };
-
     const statusLabels = {
         TODO: "À faire",
         IN_PROGRESS: "En cours",
         DONE: "Terminée",
-    };
-
-    const priorityClass = {
-        LOW: styles.priorityLOW,
-        MEDIUM: styles.priorityMEDIUM,
-        HIGH: styles.priorityHIGH,
     };
 
     const statusClass = {
@@ -86,44 +77,75 @@ export default function TasksPage() {
 
                     <div className={styles.projectHeading}>
 
-                        <h1 className={styles.projectTitle}>
-                            {project?.name || "Projet"}
-                        </h1>
+                        <div className={styles.containerButtonModif}>
+                            <h1 className={styles.projectTitle}>
+                                {project?.name || "Projet"}
+                            </h1>
+
+                            {isOwner && (
+                                <p className={styles.editButton}>Modifier</p>
+                            )}
+                        </div>
 
                         <p className={styles.projectDescription}>
-                            {project?.description ||
-                                "Aucune description disponible."}
+                            {project?.description || "Aucune description disponible."}
                         </p>
-
                     </div>
-
                 </div>
-
 
                 <div className={styles.projectActions}>
 
-                    <button
-                        type="button"
-                        className={styles.createTaskButton}
-                    >
+                    <button type="button" className={styles.createTaskButton}>
                         Créer une tâche
                     </button>
 
-                    <button
-                        type="button"
-                        className={styles.aiButton}
-                    >
+                    <button type="button" className={styles.aiButton}>
                         ✦ IA
                     </button>
-
                 </div>
 
             </header>
 
+            {/* CONTRIBUTOR */}
+            <section className={styles.contributor}>
+
+                <div className={styles.numberContributor}>
+                    <p>Contributeurs</p>
+                    <span className={styles.number}>{(project?.members?.length ?? 0) + 1} personnes</span>
+                </div>
+
+                <div className={styles.assignees}>
+
+                    <div className={styles.assignee}>
+                        <span className={styles.avatarOrange}>{getInitials(project?.owner?.name)}</span>
+                        <span className={styles.assigneeNameOrange}>{project?.owner?.name}</span>
+                    </div>
+
+                    {project?.members?.length > 0 ? (
+
+                        project.members.map((member) => {
+
+                            const name = member.user?.name || "Utilisateur";
+
+                            return (
+                                <div className={styles.assignee} key={member.id}>
+                                    <span className={styles.avatar}>{getInitials(name)}</span>
+                                    <span className={styles.assigneeName}>{name}</span>
+                                </div>
+                            );
+                        })
+
+                    ) : (
+                        <span className={styles.noAssignee}>Aucun utilisateur assigné</span>
+                    )}
+
+                </div>
+
+            </section>
+
             <section className={styles.tasksContainer}>
 
                 {/* HEADER DES TACHES */}
-
                 <div className={styles.tasksHeader}>
 
                     <div>
@@ -136,21 +158,28 @@ export default function TasksPage() {
                         </p>
                     </div>
 
-
                     <div className={styles.tasksToolbar}>
 
-                        <button
-                            type="button"
-                            className={styles.toolbarButtonActive}
-                        >
-                            ☷ Liste
+                        <button  type="button" className={styles.toolbarButtonActive}>
+                            <Image
+                                src="/tcheck_orange.svg"
+                                alt="tcheck orange"
+                                className={styles.dueDateIcon}
+                                width={12}
+                                height={12}
+                            />
+                            Liste
                         </button>
 
-                        <button
-                            type="button"
-                            className={styles.toolbarButton}
-                        >
-                            ▣ Calendrier
+                        <button type="button" className={styles.toolbarButton}>
+                            <Image
+                                src="/calendar_orange.svg"
+                                alt="calendrier orange"
+                                className={styles.dueDateIcon}
+                                width={12}
+                                height={12}
+                            />
+                            Calendrier
                         </button>
 
                         <select
@@ -198,15 +227,11 @@ export default function TasksPage() {
 
                 {!loading && !error && tasks.length === 0 && (
                     <div className={styles.emptyState}>
-                        <p>
-                            Aucune tâche pour ce projet.
-                        </p>
+                        <p>Aucune tâche pour ce projet.</p>
                     </div>
                 )}
 
-
                 {/* LISTE DES TACHES */}
-
                 {!loading && !error && tasks.length > 0 && (
 
                     <div className={styles.taskList}>
@@ -230,32 +255,28 @@ export default function TasksPage() {
                                                 </h3>
 
                                                 <span
-                                                    className={`${styles.priorityBadge} ${
-                                                        priorityClass[
-                                                            task.priority
+                                                    className={`${styles.statusBadge} ${
+                                                        statusClass[
+                                                            task.status
                                                         ] || ""
                                                     }`}
                                                 >
                                                     {
-                                                        priorityLabels[
-                                                            task.priority
-                                                        ] || task.priority
+                                                        statusLabels[
+                                                            task.status
+                                                        ] || task.status
                                                     }
                                                 </span>
 
                                             </div>
 
                                             <p className={styles.taskDescription}>
-                                                {task.description ||
-                                                    "Aucune description"}
+                                                {task.description || "Aucune description"}    
                                             </p>
 
                                         </div>
 
-                                        <button
-                                            type="button"
-                                            className={styles.taskMenuButton}
-                                        >
+                                        <button type="button" className={styles.taskMenuButton}>
                                             ...
                                         </button>
 
@@ -263,30 +284,16 @@ export default function TasksPage() {
 
                                     <div className={styles.taskDetails}>
 
-                                        <span
-                                            className={`${styles.statusBadge} ${
-                                                statusClass[
-                                                    task.status
-                                                ] || ""
-                                            }`}
-                                        >
-                                            {
-                                                statusLabels[
-                                                    task.status
-                                                ] || task.status
-                                            }
-                                        </span>
-
-
                                         <div className={styles.dueDate}>
+                                            <span>Échéance :</span>
 
-                                            <span className={styles.dueDateIcon}>
-                                                ◷
-                                            </span>
-
-                                            <span>
-                                                Échéance :
-                                            </span>
+                                            <Image
+                                                src="/calendar.svg"
+                                                alt="calendrier noir"
+                                                className={styles.dueDateIcon}
+                                                width={12}
+                                                height={12}
+                                            />
 
                                             <strong>
                                                 {task.dueDate
@@ -318,102 +325,36 @@ export default function TasksPage() {
 
                                             {task.assignees?.length > 0 ? (
 
-                                                task.assignees.map(
-                                                    (assignee) => {
+                                                task.assignees.map((assignee) => {
 
-                                                        const name =
-                                                            assignee.user?.name ||
-                                                            "Utilisateur";
-
-                                                        const initials =
-                                                            name
-                                                                .trim()
-                                                                .split(/\s+/)
-                                                                .map(
-                                                                    (word) =>
-                                                                        word[0]
-                                                                )
-                                                                .join("")
-                                                                .substring(
-                                                                    0,
-                                                                    2
-                                                                )
-                                                                .toUpperCase();
+                                                        const name = assignee.user?.name ||"Utilisateur";
 
                                                         return (
-
-                                                            <div
-                                                                className={
-                                                                    styles.assignee
-                                                                }
-                                                                key={
-                                                                    assignee.id
-                                                                }
-                                                            >
-
-                                                                <span
-                                                                    className={
-                                                                        styles.avatar
-                                                                    }
-                                                                >
-                                                                    {initials}
-                                                                </span>
-
-                                                                <span
-                                                                    className={
-                                                                        styles.assigneeName
-                                                                    }
-                                                                >
-                                                                    {name}
-                                                                </span>
-
+                                                            <div className={styles.assignee} key={assignee.id}>
+                                                                <span className={styles.avatar}>{getInitials(name)}</span>
+                                                                <span className={styles.assigneeName}>{name}</span>
                                                             </div>
-
                                                         );
                                                     }
                                                 )
 
                                             ) : (
-
-                                                <span
-                                                    className={
-                                                        styles.noAssignee
-                                                    }
-                                                >
-                                                    Aucun utilisateur assigné
-                                                </span>
-
+                                                <span className={styles.noAssignee}>Aucun utilisateur assigné</span>
                                             )}
-
                                         </div>
-
                                     </div>
 
                                     <div className={styles.commentsSection}>
-
-                                        <span>
-                                            Commentaires (
-                                            {task.comments?.length || 0}
-                                            )
-                                        </span>
-
-                                        <span className={styles.commentsArrow}>
-                                            ⌃
-                                        </span>
-
+                                        <span>Commentaires ({task.comments?.length || 0})</span>
+                                        <span className={styles.commentsArrow}>⌃</span>
                                     </div>
 
                                 </article>
-
                             );
                         })}
-
                     </div>
-
                 )}
-
             </section>
-
         </main>
     );
 }

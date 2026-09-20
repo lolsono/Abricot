@@ -3,7 +3,6 @@
     min-height: 100vh;
     padding: 40px 70px;
     box-sizing: border-box;
-    background-color: #ffffff;
 }
 
 
@@ -174,6 +173,11 @@
     gap: 4px;
 }
 
+.logoMember {
+    width: 11px;
+    height: 11px;
+}
+
 
 /* =========================
    AVATARS
@@ -198,7 +202,7 @@
 }
 
 .avatarOwner {
-    color: #a55d28;
+    color: black;
     background-color: #ffe4d0;
 }
 
@@ -208,10 +212,10 @@
 ========================= */
 
 .ownerBadge {
-    padding: 4px 7px;
+    padding: 9px 12px;
     color: #a55d28;
     background-color: #ffe4d0;
-    border-radius: 8px;
+    border-radius: 50px;
     font-size: 6px;
 }
 
