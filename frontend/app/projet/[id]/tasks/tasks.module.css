@@ -73,8 +73,12 @@
 
 /* edit bouton */
 .editButton {
+    font-size: 13px;
     cursor: pointer;
     color: #D3590B;
+    background-color: transparent;
+    border: none;
+    text-decoration: underline;
 }
 
 .editButton:hover {

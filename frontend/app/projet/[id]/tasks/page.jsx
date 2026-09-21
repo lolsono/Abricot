@@ -5,9 +5,12 @@ import { useParams, useRouter } from "next/navigation";
 import { getProjectById } from "@/services/projectServices";
 import { getProjectTasks } from "@/services/taskServices";
 import { useAuth } from "@/context/AuthContext";
+import Modal from "@/components/modal/Modal.js";
 import styles from "./tasks.module.css";
 import Image from "next/image";
 import { getInitials } from "@/utils/utils";
+import ProjectFormModif from "@/components/projectFormModif/ProjectFormModif";
+import { removeProject } from "@/services/projectServices";
 
 export default function TasksPage() {
     const { id } = useParams();
@@ -17,6 +20,10 @@ export default function TasksPage() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const { user } = useAuth();
+
+    const [modalOpenModif, setModalOpenModif] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false);
+    const [modalOpenIA, setModalOpenIA] = useState(false);
 
     /* pour edit boutton */
     const isOwner = project?.owner?.id != null && project.owner.id === user?.id;
@@ -48,6 +55,52 @@ export default function TasksPage() {
         }
     }, [id]);
 
+    /* Gestion de la suppression */
+    const handleDeleteProject = async () => {
+
+        const confirmed = window.confirm(
+            "Es-tu sûr de vouloir supprimer ce projet ? Cette action est irréversible."
+        );
+
+        if (!confirmed) {
+            return;
+        }
+
+        try {
+            await removeProject(project.id);
+            router.push("/projet");
+        } catch (err) {
+            console.error(err);
+            setError(err.message || "Impossible de supprimer le projet.");
+        }
+    };
+
+    /* Gestion des modals */
+    const handleModifProject = (data) => {
+        setProject((prevProject) => ({
+            ...prevProject,
+            name: data.name,
+            description: data.description,
+            members: data.contributors.map((contributor) => ({
+                id: contributor.id,
+                user: contributor,
+            })),
+        }));
+
+        setModalOpenModif(false);
+    };
+
+    const handleCreateTask = (data) => {
+        console.log(data);
+        setModalOpenModif(false);
+    };
+
+    const handleCreateTaskIA = (data) => {
+        console.log(data);
+        setModalOpenModif(false);
+    };
+
+    /* Gestion des status et tags */
     const statusLabels = {
         TODO: "À faire",
         IN_PROGRESS: "En cours",
@@ -62,6 +115,36 @@ export default function TasksPage() {
 
     return (
         <main className={styles.container}>
+
+            {/* Gestion des modals */}
+
+            <Modal
+                isOpen={modalOpenModif}
+                onClose={() => setModalOpenModif(false)}
+                title="Modifier"
+            >
+                <ProjectFormModif
+                    project={project}
+                    onSubmit={handleModifProject}
+                />
+
+            </Modal>
+
+            <Modal
+                isOpen={modalOpen}
+                onClose={() => setModalOpen(false)}
+                title="Créer une tâche"
+            >
+
+            </Modal>
+
+            <Modal
+                isOpen={modalOpenIA}
+                onClose={() => setModalOpenIA(false)}
+                title="IA Créer une tâche"
+            >
+
+            </Modal>
 
             <header className={styles.projectHeader}>
 
@@ -83,7 +166,21 @@ export default function TasksPage() {
                             </h1>
 
                             {isOwner && (
-                                <p className={styles.editButton}>Modifier</p>
+                                <>
+                                    <button
+                                        className={styles.editButton}
+                                        onClick={() => setModalOpenModif(true)}
+                                    >
+                                        Modifier
+                                    </button>
+
+                                    <button
+                                        className={styles.editButton}
+                                        onClick={handleDeleteProject}
+                                    >
+                                        Supprimer
+                                    </button>
+                                </>
                             )}
                         </div>
 
@@ -95,11 +192,11 @@ export default function TasksPage() {
 
                 <div className={styles.projectActions}>
 
-                    <button type="button" className={styles.createTaskButton}>
+                    <button type="button" className={styles.createTaskButton} onClick={() => setModalOpen(true)}>
                         Créer une tâche
                     </button>
 
-                    <button type="button" className={styles.aiButton}>
+                    <button type="button" className={styles.aiButton} onClick={() => setModalOpenIA(true)}>
                         ✦ IA
                     </button>
                 </div>
