@@ -60,10 +60,13 @@ export default function ProjectForm() {
                 />
             </div>
 
-            <UserSelector
-                value={contributors}
-                onChange={setContributors}
-            />
+            <div className={styles.formGroup}>
+                <label>Contributeurs</label>
+                <UserSelector
+                    value={contributors}
+                    onChange={setContributors}
+                />
+            </div>
 
             {errorMessage && (
                 <p className={styles.errorMessage}>

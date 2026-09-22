@@ -162,9 +162,87 @@
     color: #6B7280;
 }
 
-/* Tags proprio */
+/* =========================================================
+   ASSIGNES (utilisé par le bandeau Contributeurs)
+========================================================= */
 
+.assignees {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
 
+.assignee {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 8px 3px 3px;
+    border-radius: 12px;
+    color: #62666d;
+    font-size: 8px;
+}
+
+.avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #E5E7EB;
+    color: #0F0F0F;
+    font-size: 7px;
+    font-weight: 400;
+}
+
+.assigneeName {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 18px;
+    border-radius: 50px;
+    background: #E5E7EB;
+    color: #6B7280;
+    font-size: 7px;
+    font-weight: 400;
+    padding: 7px 10px;
+}
+
+/* Name + avatar orange (propriétaire) */
+.avatarOrange {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #FFE8D9;
+    color: #0F0F0F;
+    font-size: 7px;
+    font-weight: 400;
+}
+
+.assigneeNameOrange {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 18px;
+    border-radius: 50px;
+    background: #FFE8D9;
+    color: #D3590B;
+    font-size: 7px;
+    font-weight: 400;
+    padding: 7px 10px;
+}
+
+.noAssignee {
+    color: #9a9da3;
+    font-size: 8px;
+}
 
 /* =========================================================
    CONTAINER TACHES
@@ -247,6 +325,11 @@
     color: #e97014;
 }
 
+.dueDateIcon {
+    color: #858991;
+    font-size: 9px;
+}
+
 /* =========================================================
    SELECT
 ========================================================= */
@@ -317,345 +400,6 @@
     flex-direction: column;
 
     gap: 10px;
-}
-
-
-/* =========================================================
-   CARD
-========================================================= */
-
-.taskCard {
-    width: 100%;
-
-    box-sizing: border-box;
-
-    background: #ffffff;
-
-    border: 1px solid #e7e8eb;
-    border-radius: 7px;
-
-    overflow: hidden;
-
-    transition:
-        border-color 0.15s ease,
-        box-shadow 0.15s ease;
-}
-
-.taskCard:hover {
-    border-color: #dcdde0;
-
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.025);
-}
-
-
-/* =========================================================
-   HEADER CARD
-========================================================= */
-
-.taskHeader {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-
-    gap: 20px;
-
-    padding: 14px 16px 10px;
-}
-
-.taskTitleContainer {
-    min-width: 0;
-}
-
-.taskTitleRow {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-}
-
-.taskTitle {
-    margin: 0;
-    color: #202124;
-    font-size: 11px;
-    font-weight: 600;
-    line-height: 1.4;
-}
-
-.taskDescription {
-    margin: 6px 0 0;
-    color: #858991;
-    font-size: 9px;
-    line-height: 1.4;
-}
-
-
-/* =========================================================
-   MENU TASK
-========================================================= */
-
-.taskMenuButton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    flex-shrink: 0;
-
-    width: 25px;
-    height: 25px;
-
-    padding: 0;
-
-    border: 1px solid #e5e6e9;
-    border-radius: 5px;
-
-    background: #ffffff;
-
-    color: #777b82;
-
-    font-size: 11px;
-
-    cursor: pointer;
-}
-
-.taskMenuButton:hover {
-    background: #f7f7f8;
-}
-
-
-/* =========================================================
-   PRIORITE
-========================================================= */
-
-.priorityBadge {
-    display: inline-flex;
-    align-items: center;
-
-    padding: 3px 7px;
-
-    border-radius: 10px;
-
-    font-size: 8px;
-    font-weight: 500;
-
-    line-height: 1;
-}
-
-.priorityLOW {
-    background: #edf5ff;
-    color: #4385cf;
-}
-
-.priorityMEDIUM {
-    background: #fff5df;
-    color: #d89113;
-}
-
-.priorityHIGH {
-    background: #fff0ee;
-    color: #dc594e;
-}
-
-
-/* =========================================================
-   DETAILS
-========================================================= */
-
-.taskDetails {
-    display: flex;
-    align-items: center;
-
-    gap: 18px;
-
-    padding: 5px 16px 11px;
-}
-
-
-/* =========================================================
-   STATUS
-========================================================= */
-
-.statusBadge {
-    display: inline-flex;
-    align-items: center;
-
-    padding: 4px 8px;
-
-    border-radius: 10px;
-
-    font-size: 8px;
-    font-weight: 500;
-
-    line-height: 1;
-}
-
-.statusTODO {
-    background: #fff0ee;
-    color: #e05b50;
-}
-
-.statusIN_PROGRESS {
-    background: #fff5df;
-    color: #d99315;
-}
-
-.statusDONE {
-    background: #e8f8ef;
-    color: #28a565;
-}
-
-
-/* =========================================================
-   DATE
-========================================================= */
-
-.dueDate {
-    display: flex;
-    align-items: center;
-
-    gap: 4px;
-
-    color: #858991;
-
-    font-size: 8px;
-}
-
-.dueDateIcon {
-    color: #858991;
-
-    font-size: 9px;
-}
-
-.dueDate strong {
-    color: #62666d;
-
-    font-weight: 500;
-}
-
-
-/* =========================================================
-   ASSIGNES
-========================================================= */
-
-.assigneesSection {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 0 16px 12px;
-}
-
-.assigneesLabel {
-    flex-shrink: 0;
-    color: #858991;
-    font-size: 8px;
-}
-
-.assignees {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.assignee {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    padding: 3px 8px 3px 3px;
-    border-radius: 12px;
-    color: #62666d;
-    font-size: 8px;
-}
-
-.avatar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 18px;
-    height: 18px;
-    flex-shrink: 0;
-    border-radius: 50%;
-    background: #E5E7EB;
-    color: #0F0F0F;
-    font-size: 7px;
-    font-weight: 400;
-}
-
-.assigneeName {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 18px;
-    border-radius: 50px;
-    background: #E5E7EB;
-    color: #6B7280;
-    font-size: 7px;
-    font-weight: 400;
-    padding: 7px 10px;
-}
-
-/* Name + avatar orange */
-.avatarOrange {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 18px;
-    height: 18px;
-    flex-shrink: 0;
-    border-radius: 50%;
-    background: #FFE8D9;
-    color: #0F0F0F;
-    font-size: 7px;
-    font-weight: 400;
-}
-
-.assigneeNameOrange {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 18px;
-    border-radius: 50px;
-    background: #FFE8D9;
-    color: #D3590B;
-    font-size: 7px;
-    font-weight: 400;
-    padding: 7px 10px;
-}
-
-.noAssignee {
-    color: #9a9da3;
-    font-size: 8px;
-}
-
-
-/* =========================================================
-   COMMENTAIRES
-========================================================= */
-
-.commentsSection {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    min-height: 34px;
-
-    box-sizing: border-box;
-
-    padding: 0 16px;
-
-    border-top: 1px solid #eeeeef;
-
-    color: #777b82;
-
-    font-size: 8px;
-}
-
-.commentsArrow {
-    color: #777b82;
-
-    font-size: 11px;
-
-    cursor: pointer;
 }
 
 
@@ -761,23 +505,6 @@
     .statusSelect,
     .searchInput {
         width: 100%;
-    }
-
-    .taskDetails {
-        align-items: flex-start;
-        flex-direction: column;
-
-        gap: 8px;
-    }
-
-    .assigneesSection {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
-    .taskTitleRow {
-        align-items: flex-start;
-        flex-direction: column;
     }
 
     /* Contributor */

@@ -27,3 +27,64 @@ export async function getProjectTasks(projectId) {
 
     return data;
 }
+
+/**
+ * Fonction de création de tâche.
+ * @param {*} projectId
+ * @param {*} payload - { title, description, status, priority, dueDate, assignees }
+ * @returns
+ */
+export async function createTask(projectId, payload) {
+
+    const response = await fetch("/api/tasks/createTasks", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            projectId,
+            ...payload,
+        }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        throw new Error(
+            data.message || "Erreur lors de la création"
+        );
+    }
+
+    return data;
+}
+
+/**
+ * Fonction de modification de la tâche.
+ * @param {*} projectId
+ * @param {*} payload - { title, description, status, priority, dueDate, assignees }
+ * @returns
+ */
+export async function modifTask(taskId, projectId, payload) {
+
+    const response = await fetch("/api/tasks/modifTasks", {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            taskId,
+            projectId,
+            ...payload,
+        }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        throw new Error(
+            data.message || "Erreur lors de la création"
+        );
+    }
+
+    return data;
+}

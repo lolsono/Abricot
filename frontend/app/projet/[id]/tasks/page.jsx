@@ -10,6 +10,8 @@ import styles from "./tasks.module.css";
 import Image from "next/image";
 import { getInitials } from "@/utils/utils";
 import ProjectFormModif from "@/components/projectFormModif/ProjectFormModif";
+import TasksForm from "@/components/tasksForm/TasksForm";
+import TaskCard from "@/components/TaskCards/TaskCard";
 import { removeProject } from "@/services/projectServices";
 
 export default function TasksPage() {
@@ -55,7 +57,7 @@ export default function TasksPage() {
         }
     }, [id]);
 
-    /* Gestion de la suppression */
+    /* Gestion de la suppression du projet */
     const handleDeleteProject = async () => {
 
         const confirmed = window.confirm(
@@ -91,26 +93,13 @@ export default function TasksPage() {
     };
 
     const handleCreateTask = (data) => {
-        console.log(data);
-        setModalOpenModif(false);
+        setTasks((prevTasks) => [...prevTasks, data.data.task]);
+        setModalOpen(false);
     };
 
     const handleCreateTaskIA = (data) => {
         console.log(data);
         setModalOpenModif(false);
-    };
-
-    /* Gestion des status et tags */
-    const statusLabels = {
-        TODO: "À faire",
-        IN_PROGRESS: "En cours",
-        DONE: "Terminée",
-    };
-
-    const statusClass = {
-        TODO: styles.statusTODO,
-        IN_PROGRESS: styles.statusIN_PROGRESS,
-        DONE: styles.statusDONE,
     };
 
     return (
@@ -127,7 +116,6 @@ export default function TasksPage() {
                     project={project}
                     onSubmit={handleModifProject}
                 />
-
             </Modal>
 
             <Modal
@@ -135,7 +123,10 @@ export default function TasksPage() {
                 onClose={() => setModalOpen(false)}
                 title="Créer une tâche"
             >
-
+                <TasksForm
+                    projectId={project?.id}
+                    onSubmit={handleCreateTask}
+                />
             </Modal>
 
             <Modal
@@ -333,122 +324,13 @@ export default function TasksPage() {
 
                     <div className={styles.taskList}>
 
-                        {tasks.map((task) => {
-
-                            return (
-
-                                <article
-                                    key={task.id}
-                                    className={styles.taskCard}
-                                >
-                                    <div className={styles.taskHeader}>
-
-                                        <div className={styles.taskTitleContainer}>
-
-                                            <div className={styles.taskTitleRow}>
-
-                                                <h3 className={styles.taskTitle}>
-                                                    {task.title}
-                                                </h3>
-
-                                                <span
-                                                    className={`${styles.statusBadge} ${
-                                                        statusClass[
-                                                            task.status
-                                                        ] || ""
-                                                    }`}
-                                                >
-                                                    {
-                                                        statusLabels[
-                                                            task.status
-                                                        ] || task.status
-                                                    }
-                                                </span>
-
-                                            </div>
-
-                                            <p className={styles.taskDescription}>
-                                                {task.description || "Aucune description"}    
-                                            </p>
-
-                                        </div>
-
-                                        <button type="button" className={styles.taskMenuButton}>
-                                            ...
-                                        </button>
-
-                                    </div>
-
-                                    <div className={styles.taskDetails}>
-
-                                        <div className={styles.dueDate}>
-                                            <span>Échéance :</span>
-
-                                            <Image
-                                                src="/calendar.svg"
-                                                alt="calendrier noir"
-                                                className={styles.dueDateIcon}
-                                                width={12}
-                                                height={12}
-                                            />
-
-                                            <strong>
-                                                {task.dueDate
-                                                    ? new Date(
-                                                          task.dueDate
-                                                      ).toLocaleDateString(
-                                                          "fr-FR",
-                                                          {
-                                                              day: "numeric",
-                                                              month: "long",
-                                                              year: "numeric",
-                                                          }
-                                                      )
-                                                    : "Aucune"
-                                                }
-                                            </strong>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div className={styles.assigneesSection}>
-
-                                        <span className={styles.assigneesLabel}>
-                                            Assigné à :
-                                        </span>
-
-                                        <div className={styles.assignees}>
-
-                                            {task.assignees?.length > 0 ? (
-
-                                                task.assignees.map((assignee) => {
-
-                                                        const name = assignee.user?.name ||"Utilisateur";
-
-                                                        return (
-                                                            <div className={styles.assignee} key={assignee.id}>
-                                                                <span className={styles.avatar}>{getInitials(name)}</span>
-                                                                <span className={styles.assigneeName}>{name}</span>
-                                                            </div>
-                                                        );
-                                                    }
-                                                )
-
-                                            ) : (
-                                                <span className={styles.noAssignee}>Aucun utilisateur assigné</span>
-                                            )}
-                                        </div>
-                                    </div>
-
-                                    <div className={styles.commentsSection}>
-                                        <span>Commentaires ({task.comments?.length || 0})</span>
-                                        <span className={styles.commentsArrow}>⌃</span>
-                                    </div>
-
-                                </article>
-                            );
-                        })}
+                        {tasks.map((task) => (
+                            <TaskCard
+                                key={task.id}
+                                task={task}
+                                projectId={project?.id}
+                            />
+                        ))}
                     </div>
                 )}
             </section>

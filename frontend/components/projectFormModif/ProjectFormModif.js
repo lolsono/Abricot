@@ -144,11 +144,14 @@ export default function ProjectFormModif({ project, onSubmit }) {
                     onChange={(e) => setDescription(e.target.value)}
                 />
             </div>
-
-            <UserSelector
-                value={contributors}
-                onChange={setContributors}
-            />
+            
+            <div className={styles.formGroup}>
+                <label>Contributeurs</label>
+                <UserSelector
+                    value={contributors}
+                    onChange={setContributors}
+                />
+            </div>
 
             {errorMessage && (
                 <p className={styles.errorMessage}>

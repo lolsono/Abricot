@@ -722,16 +722,6 @@ const options = {
                       type: "string",
                       example: "Corriger le problème d'authentification",
                     },
-                    status: {
-                      type: "string",
-                      enum: [
-                        "TODO",
-                        "IN_PROGRESS",
-                        "DONE",
-                        "CANCELLED",
-                      ],
-                      example: "TODO",
-                    },
                     priority: {
                       type: "string",
                       enum: ["LOW", "MEDIUM", "HIGH", "URGENT"],
@@ -741,6 +731,9 @@ const options = {
                       type: "string",
                       format: "date-time",
                       example: "2026-10-01T18:00:00.000Z",
+                    },
+                      assigneeIds: {
+                      type: "string",
                     },
                   },
                 },

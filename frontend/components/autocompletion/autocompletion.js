@@ -61,10 +61,6 @@ const removeUser = (userId) => {
 return (
     <div className={styles.selectGroup}>
 
-        <label htmlFor="user-search">
-            Contributeurs
-        </label>
-
         <input
             id="user-search"
             type="text"
