@@ -16,10 +16,10 @@ export async function DELETE(request) {
             );
         }
 
-        const { projectId, userId } = await request.json();
+        const { taskId, projectId } = await request.json();
 
         const response = await fetch(
-            `${process.env.API_URL}/projects/${projectId}`,
+            `${process.env.API_URL}/projects/${projectId}/tasks/${taskId}`,
             {
                 method: "DELETE",
                 headers: {
@@ -37,7 +37,7 @@ export async function DELETE(request) {
                     success: false,
                     message:
                         data.message ||
-                        "Impossible de retirer le contributor.",
+                        "Impossible de retirer la tâche.",
                 },
                 {
                     status: response.status,
@@ -50,7 +50,7 @@ export async function DELETE(request) {
     } catch (error) {
 
         console.error(
-            "Erreur lors de la suppression du contributor :",
+            "Erreur lors de la suppression de la tâche :",
             error
         );
 

@@ -5,6 +5,7 @@ import Image from "next/image";
 import styles from "./TaskCard.module.css";
 import Modal from "@/components/modal/Modal.js";
 import { getInitials } from "@/utils/utils";
+import { removeTask } from "@/services/taskServices";
 import TasksFormModif from "../tasksFormModif/TasksFormModif";
 
 const statusLabels = {
@@ -19,11 +20,12 @@ const statusClass = {
     DONE: styles.statusDONE,
 };
 
-export default function TaskCard({ task, projectId, onEdit ,onDelete }) {
+export default function TaskCard({ task, projectId, onEdit, onDelete }) {
 
     const [menuOpen, setMenuOpen] = useState(false);
     const menuRef = useRef(null);
     const [modalOpenModif, setModalOpenModif] = useState(false);
+    const [deleteError, setDeleteError] = useState("");
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -36,8 +38,27 @@ export default function TaskCard({ task, projectId, onEdit ,onDelete }) {
     }, []);
 
     const handleModifTask = (data) => {
-        onEdit(data); 
+        onEdit?.(data);
         setModalOpenModif(false);
+    };
+
+    const handleDeleteTask = async () => {
+
+        const confirmed = window.confirm(
+            "Es-tu sûr de vouloir supprimer cette tâche ?"
+        );
+
+        if (!confirmed) return;
+
+        setDeleteError("");
+
+        try {
+            await removeTask(task.id, projectId);
+            onDelete?.(task.id);
+        } catch (error) {
+            console.error(error.message);
+            setDeleteError(error.message || "Impossible de supprimer la tâche.");
+        }
     };
 
     return (
@@ -99,6 +120,7 @@ export default function TaskCard({ task, projectId, onEdit ,onDelete }) {
                                 type="button"
                                 className={styles.taskMenuItem}
                                 onClick={() => {
+                                    setMenuOpen(false);
                                     setModalOpenModif(true);
                                 }}
                             >
@@ -110,7 +132,7 @@ export default function TaskCard({ task, projectId, onEdit ,onDelete }) {
                                 className={`${styles.taskMenuItem} ${styles.taskMenuItemDelete}`}
                                 onClick={() => {
                                     setMenuOpen(false);
-                                    onDelete?.(task);
+                                    handleDeleteTask();
                                 }}
                             >
                                 Supprimer
@@ -120,6 +142,12 @@ export default function TaskCard({ task, projectId, onEdit ,onDelete }) {
                 </div>
 
             </div>
+
+            {deleteError && (
+                <p className={styles.taskDescription} style={{ color: "#dc2626", padding: "0 16px" }}>
+                    {deleteError}
+                </p>
+            )}
 
             <div className={styles.taskDetails}>
 

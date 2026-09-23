@@ -102,6 +102,22 @@ export default function TasksPage() {
         setModalOpenModif(false);
     };
 
+    /* Remplace la tâche modifiée dans la liste, pour rafraîchir l'affichage de sa card */
+    const handleTaskUpdated = (data) => {
+        const updatedTask = data?.data?.task;
+
+        if (!updatedTask) return;
+
+        setTasks((prevTasks) =>
+            prevTasks.map((t) => (t.id === updatedTask.id ? updatedTask : t))
+        );
+    };
+
+    /* Retire simplement la tâche du state une fois supprimée côté TaskCard */
+    const handleTaskDeleted = (taskId) => {
+        setTasks((prevTasks) => prevTasks.filter((t) => t.id !== taskId));
+    };
+
     return (
         <main className={styles.container}>
 
@@ -329,6 +345,8 @@ export default function TasksPage() {
                                 key={task.id}
                                 task={task}
                                 projectId={project?.id}
+                                onEdit={handleTaskUpdated}
+                                onDelete={handleTaskDeleted}
                             />
                         ))}
                     </div>

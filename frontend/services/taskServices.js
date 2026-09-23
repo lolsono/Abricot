@@ -60,6 +60,7 @@ export async function createTask(projectId, payload) {
 
 /**
  * Fonction de modification de la tâche.
+ * @param {*} taskId
  * @param {*} projectId
  * @param {*} payload - { title, description, status, priority, dueDate, assignees }
  * @returns
@@ -83,6 +84,36 @@ export async function modifTask(taskId, projectId, payload) {
     if (!response.ok) {
         throw new Error(
             data.message || "Erreur lors de la création"
+        );
+    }
+
+    return data;
+}
+
+/**
+ * Fonction de modification de la tâche.
+ * @param {*} taskId
+ * @param {*} projectId
+ * @returns
+ */
+export async function removeTask(taskId, projectId) {
+
+    const response = await fetch("/api/tasks/deleteTasks", {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            taskId,
+            projectId,
+        }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        throw new Error(
+            data.message || "Erreur lors de la suppression"
         );
     }
 
