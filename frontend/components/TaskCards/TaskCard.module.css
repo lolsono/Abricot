@@ -327,37 +327,6 @@
 
 
 /* =========================================================
-   COMMENTAIRES
-========================================================= */
-
-.commentsSection {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    min-height: 34px;
-
-    box-sizing: border-box;
-
-    padding: 0 16px;
-
-    border-top: 1px solid #eeeeef;
-
-    color: #777b82;
-
-    font-size: 8px;
-}
-
-.commentsArrow {
-    color: #777b82;
-
-    font-size: 11px;
-
-    cursor: pointer;
-}
-
-
-/* =========================================================
    RESPONSIVE
 ========================================================= */
 

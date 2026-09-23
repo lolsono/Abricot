@@ -1,0 +1,150 @@
+.commentsWrapper {
+    border-top: 1px solid #eeeeef;
+}
+
+.commentsToggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    min-height: 34px;
+
+    box-sizing: border-box;
+
+    padding: 0 16px;
+
+    border: none;
+    background: transparent;
+
+    color: #777b82;
+
+    font-size: 8px;
+
+    cursor: pointer;
+}
+
+.commentsToggle:hover {
+    background: #fafafb;
+}
+
+.commentsArrow {
+    color: #777b82;
+
+    font-size: 11px;
+
+    transition: transform 0.15s ease;
+}
+
+.commentsArrowOpen {
+    transform: rotate(180deg);
+}
+
+/* =========================================================
+   LISTE DES COMMENTAIRES
+========================================================= */
+
+.commentsList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    padding: 4px 16px 14px;
+}
+
+.commentsMessage {
+    margin: 0;
+    color: #9a9da3;
+    font-size: 8px;
+}
+
+.commentsError {
+    margin: 0;
+    color: #dc2626;
+    font-size: 8px;
+}
+
+.comment {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.commentAvatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #E5E7EB;
+    color: #0F0F0F;
+    font-size: 7px;
+    font-weight: 400;
+}
+
+.commentBody {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.commentHeader {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+}
+
+.commentAuthor {
+    color: #202124;
+    font-size: 8px;
+    font-weight: 600;
+}
+
+.commentDate {
+    color: #9a9da3;
+    font-size: 7px;
+}
+
+.commentContent {
+    margin: 0;
+    color: #62666d;
+    font-size: 8px;
+    line-height: 1.4;
+}
+
+.commentDeleteButton {
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 18px;
+    height: 18px;
+
+    padding: 0;
+    margin-left: auto;
+
+    border: none;
+    background: transparent;
+
+    color: #9a9da3;
+
+    font-size: 9px;
+
+    cursor: pointer;
+
+    transition: color 0.15s ease;
+}
+
+.commentDeleteButton:hover {
+    color: #dc2626;
+}
+
+.commentDeleteButton:disabled {
+    opacity: 0.5;
+    cursor: default;
+}

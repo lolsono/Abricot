@@ -7,6 +7,7 @@ import Modal from "@/components/modal/Modal.js";
 import { getInitials } from "@/utils/utils";
 import { removeTask } from "@/services/taskServices";
 import TasksFormModif from "../tasksFormModif/TasksFormModif";
+import CommentsSection from "../CommentsSection/CommentsSection";
 
 const statusLabels = {
     TODO: "À faire",
@@ -204,10 +205,11 @@ export default function TaskCard({ task, projectId, onEdit, onDelete }) {
                 </div>
             </div>
 
-            <div className={styles.commentsSection}>
-                <span>Commentaires ({task.comments?.length || 0})</span>
-                <span className={styles.commentsArrow}>⌃</span>
-            </div>
+            <CommentsSection
+                taskId={task.id}
+                projectId={projectId}
+                initialCount={task.comments?.length || 0}
+            />
 
         </article>
     );
