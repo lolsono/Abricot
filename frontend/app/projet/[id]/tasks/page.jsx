@@ -12,6 +12,7 @@ import { getInitials } from "@/utils/utils";
 import ProjectFormModif from "@/components/projectFormModif/ProjectFormModif";
 import TasksForm from "@/components/tasksForm/TasksForm";
 import TaskCard from "@/components/TaskCards/TaskCard";
+import TasksFormIA from "@/components/tasksFormIA/TasksFormIA";
 import { removeProject } from "@/services/projectServices";
 
 export default function TasksPage() {
@@ -150,7 +151,7 @@ export default function TasksPage() {
                 onClose={() => setModalOpenIA(false)}
                 title="IA Créer une tâche"
             >
-
+                <TasksFormIA />
             </Modal>
 
             <header className={styles.projectHeader}>
@@ -167,13 +168,14 @@ export default function TasksPage() {
 
                     <div className={styles.projectHeading}>
 
-                        <div className={styles.containerButtonModif}>
+                        <div className={styles.projectTopRow}>
+
                             <h1 className={styles.projectTitle}>
                                 {project?.name || "Projet"}
                             </h1>
 
                             {isOwner && (
-                                <>
+                                <div className={styles.containerButtonModif}>
                                     <button
                                         className={styles.editButton}
                                         onClick={() => setModalOpenModif(true)}
@@ -187,14 +189,17 @@ export default function TasksPage() {
                                     >
                                         Supprimer
                                     </button>
-                                </>
+                                </div>
                             )}
+
                         </div>
 
                         <p className={styles.projectDescription}>
                             {project?.description || "Aucune description disponible."}
                         </p>
+
                     </div>
+
                 </div>
 
                 <div className={styles.projectActions}>

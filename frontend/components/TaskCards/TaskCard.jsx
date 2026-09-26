@@ -8,6 +8,8 @@ import { getInitials } from "@/utils/utils";
 import { removeTask } from "@/services/taskServices";
 import TasksFormModif from "../tasksFormModif/TasksFormModif";
 import CommentsSection from "../CommentsSection/CommentsSection";
+import { addComment } from "@/services/commentServices";
+import CommentForm from "../commentForm/CommentForm";
 
 const statusLabels = {
     TODO: "À faire",
@@ -26,7 +28,9 @@ export default function TaskCard({ task, projectId, onEdit, onDelete }) {
     const [menuOpen, setMenuOpen] = useState(false);
     const menuRef = useRef(null);
     const [modalOpenModif, setModalOpenModif] = useState(false);
+    const [modalOpenComment, setModalOpenComment] = useState(false);
     const [deleteError, setDeleteError] = useState("");
+    const [commentsRefreshKey, setCommentsRefreshKey] = useState(0);
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -42,6 +46,8 @@ export default function TaskCard({ task, projectId, onEdit, onDelete }) {
         onEdit?.(data);
         setModalOpenModif(false);
     };
+
+    /* Suppression du commentaire */
 
     const handleDeleteTask = async () => {
 
@@ -62,6 +68,14 @@ export default function TaskCard({ task, projectId, onEdit, onDelete }) {
         }
     };
 
+    /* Ajout d'un commentaire */
+    const handleAddComment = async (content) => {
+        const data = await addComment(task.id, projectId, content);
+        setModalOpenComment(false);
+        setCommentsRefreshKey((prevKey) => prevKey + 1);
+        return data;
+    };
+
     return (
         <article className={styles.taskCard}>
 
@@ -75,6 +89,14 @@ export default function TaskCard({ task, projectId, onEdit, onDelete }) {
                     projectId={projectId}
                     onSubmit={handleModifTask}
                 />
+            </Modal>
+
+            <Modal
+                isOpen={modalOpenComment}
+                onClose={() => setModalOpenComment(false)}
+                title="Commenter"
+            >
+                <CommentForm onSubmit={handleAddComment} />
             </Modal>
 
             <div className={styles.taskHeader}>
@@ -117,6 +139,17 @@ export default function TaskCard({ task, projectId, onEdit, onDelete }) {
 
                     {menuOpen && (
                         <div className={styles.taskMenuDropdown}>
+                            <button
+                                type="button"
+                                className={styles.taskMenuItem}
+                                onClick={() => {
+                                    setMenuOpen(false);
+                                    setModalOpenComment(true);
+                                }}
+                            >
+                                Commenter
+                            </button>
+
                             <button
                                 type="button"
                                 className={styles.taskMenuItem}
@@ -209,6 +242,7 @@ export default function TaskCard({ task, projectId, onEdit, onDelete }) {
                 taskId={task.id}
                 projectId={projectId}
                 initialCount={task.comments?.length || 0}
+                refreshKey={commentsRefreshKey}
             />
 
         </article>

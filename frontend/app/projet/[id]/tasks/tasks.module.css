@@ -20,33 +20,20 @@
 .projectHeaderLeft {
     display: flex;
     align-items: flex-start;
-
     gap: 12px;
-
     min-width: 0;
 }
 
 .projectHeading {
+    flex: 1;
     min-width: 0;
 }
 
-.backButton {
+.projectTopRow {
     display: flex;
     align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    width: 32px;
-    height: 32px;
-    padding: 0;
-    border: 1px solid #e3e4e7;
-    border-radius: 5px;
-    background: #ffffff;
-    color: #4e5157;
-    cursor: pointer;
-}
-
-.backButton:hover {
-    background: #f5f5f6;
+    gap: 8px;
+    width: 100%;
 }
 
 .projectTitle {
@@ -57,22 +44,15 @@
     line-height: 1.3;
 }
 
-.projectDescription {
-    margin: 5px 0 0;
-    color: #858991;
-    font-size: 13px;
-    line-height: 1.4;
-}
-
 .containerButtonModif {
     display: flex;
-    flex-direction: row;
     align-items: center;
     gap: 7px;
+    flex-shrink: 0;
 }
 
-/* edit bouton */
 .editButton {
+    padding: 0;
     font-size: 13px;
     cursor: pointer;
     color: #D3590B;
@@ -85,6 +65,38 @@
     color: #e6722a;
 }
 
+
+/* Description */
+.projectDescription {
+    margin: 5px 0 0;
+    color: #858991;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.backButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    width: 32px;
+    height: 32px;
+
+    padding: 0;
+
+    border: 1px solid #e3e4e7;
+    border-radius: 5px;
+
+    background: #ffffff;
+    color: #4e5157;
+
+    cursor: pointer;
+}
+
+.backButton:hover {
+    background: #f5f5f6;
+}
 /* =========================================================
    ACTIONS HEADER
 ========================================================= */
@@ -186,13 +198,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 18px;
-    height: 18px;
+    width: 25px;
+    height: 25px;
+    font-size: 10px;
     flex-shrink: 0;
     border-radius: 50%;
     background: #E5E7EB;
     color: #0F0F0F;
-    font-size: 7px;
     font-weight: 400;
 }
 
@@ -201,11 +213,11 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 18px;
+    height: 25px;
+    font-size: 10px;
     border-radius: 50px;
     background: #E5E7EB;
     color: #6B7280;
-    font-size: 7px;
     font-weight: 400;
     padding: 7px 10px;
 }
@@ -215,13 +227,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 18px;
-    height: 18px;
+    width: 25px;
+    height: 25px;
+    font-size: 10px;
     flex-shrink: 0;
     border-radius: 50%;
     background: #FFE8D9;
     color: #0F0F0F;
-    font-size: 7px;
     font-weight: 400;
 }
 
@@ -230,18 +242,18 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 18px;
+    height: 25px;
+    font-size: 10px;
     border-radius: 50px;
     background: #FFE8D9;
     color: #D3590B;
-    font-size: 7px;
     font-weight: 400;
     padding: 7px 10px;
 }
 
 .noAssignee {
     color: #9a9da3;
-    font-size: 8px;
+    font-size: 10px;
 }
 
 /* =========================================================
@@ -272,14 +284,14 @@
 .tasksTitle {
     margin: 0;
     color: #202124;
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 600;
 }
 
 .tasksSubtitle {
     margin: 4px 0 0;
     color: #858991;
-    font-size: 9px;
+    font-size: 10px;
 }
 
 /* =========================================================
@@ -480,6 +492,47 @@
     .projectHeader {
         align-items: flex-start;
         flex-direction: column;
+    }
+
+    /* header */
+
+        .projectHeaderLeft {
+        width: 100%;
+        align-items: flex-start;
+    }
+
+    .projectHeading {
+        width: 100%;
+    }
+
+    /*
+       Sur téléphone :
+       titre
+       description
+       boutons
+    */
+
+    .projectTopRow {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+    }
+
+    .projectTitle {
+        width: 100%;
+        font-size: 20px;
+    }
+
+    .projectDescription {
+        margin-top: 5px;
+    }
+
+    .containerButtonModif {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-top: 8px;
     }
 
     .projectActions {

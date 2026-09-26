@@ -55,3 +55,35 @@ export async function removeComment(commentId, taskId, projectId) {
 
     return data;
 }
+
+/**
+ * Fonction d'ajout d'un commentaire sur une tâche.
+ * @param {*} taskId
+ * @param {*} projectId
+ * @param {*} content
+ * @returns
+ */
+export async function addComment(taskId, projectId, content) {
+ 
+    const response = await fetch("/api/comments/addComments", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            taskId,
+            projectId,
+            content,
+        }),
+    });
+ 
+    const data = await response.json();
+ 
+    if (!response.ok || !data.success) {
+        throw new Error(
+            data.message || "Impossible d'ajouter le commentaire."
+        );
+    }
+ 
+    return data;
+}

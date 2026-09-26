@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./CommentsSection.module.css";
 import Image from "next/image";
 import { getComments, removeComment } from "@/services/commentServices";
 import { getInitials } from "@/utils/utils";
 
-export default function CommentsSection({ taskId, projectId, initialCount = 0 }) {
+export default function CommentsSection({ taskId, projectId, initialCount = 0, refreshKey }) {
 
     const [open, setOpen] = useState(false);
     const [comments, setComments] = useState(null); // null = jamais chargé
@@ -15,6 +15,24 @@ export default function CommentsSection({ taskId, projectId, initialCount = 0 })
     const [deletingId, setDeletingId] = useState(null);
     const [deleteError, setDeleteError] = useState("");
 
+    const isFirstRun = useRef(true);
+
+    const fetchComments = async () => {
+
+        setLoading(true);
+        setError("");
+
+        try {
+            const data = await getComments(taskId, projectId);
+            setComments(data?.data?.comments || []);
+        } catch (err) {
+            console.error(err);
+            setError(err.message || "Impossible de récupérer les commentaires.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
     const handleToggle = async () => {
 
         const nextOpen = !open;
@@ -22,21 +40,19 @@ export default function CommentsSection({ taskId, projectId, initialCount = 0 })
 
         // On ne va chercher les commentaires que la première fois qu'on ouvre
         if (nextOpen && comments === null) {
-
-            setLoading(true);
-            setError("");
-
-            try {
-                const data = await getComments(taskId, projectId);
-                setComments(data?.data?.comments || []);
-            } catch (err) {
-                console.error(err);
-                setError(err.message || "Impossible de récupérer les commentaires.");
-            } finally {
-                setLoading(false);
-            }
+            await fetchComments();
         }
     };
+
+    /* Se recharge quand un commentaire vient d'être ajouté */
+    useEffect(() => {
+        if (isFirstRun.current) {
+            isFirstRun.current = false;
+            return;
+        }
+
+        fetchComments();
+    }, [refreshKey]);
 
     const handleDeleteComment = async (commentId) => {
 
