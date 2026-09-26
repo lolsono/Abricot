@@ -13,9 +13,6 @@ export default function TasksFormIA() {
 
         console.log("Nouvelle tâche :", description);
 
-        // Ici tu pourras appeler ton API
-        // await fetch("/api/tasks", ...)
-
         setDescription("");
     };
 
@@ -35,6 +32,7 @@ export default function TasksFormIA() {
             >
                 <input
                     type="text"
+                    aria-label="taper la tâche à crée"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     placeholder="Décrivez les tâches que vous souhaitez ajouter..."

@@ -37,6 +37,7 @@ export default function TaskListView({ tasks, onViewTask }) {
 
                 <input
                     type="text"
+                    aria-label="Rechercher une tâche"
                     className={styles.searchInput}
                     placeholder="Rechercher une tâche"
                     value={search}

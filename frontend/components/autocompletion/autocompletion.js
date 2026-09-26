@@ -63,6 +63,7 @@ return (
 
         <input
             id="user-search"
+            aria-label="Rechercher un colaborateur"
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
