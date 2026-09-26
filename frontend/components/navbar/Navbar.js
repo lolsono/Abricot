@@ -20,7 +20,7 @@ export default function Navbar() {
         ? `${user.lastName?.[0] || ""}${user.firstName?.[0] || ""}`
         : "";
 
-    const isCompteActive = pathname.startsWith("/compte");
+    const isCompteActive = pathname.startsWith("/dashboard");
     const isProjetActive = pathname.startsWith("/projet");
 
     // Ferme le menu si on clique en dehors
@@ -58,7 +58,7 @@ export default function Navbar() {
             <div className={styles.links}>
 
                 <Link
-                    href="/compte"
+                    href="/dashboard"
                     className={isCompteActive ? styles.active : ""}
                 >
                     <span className={styles.icon}>

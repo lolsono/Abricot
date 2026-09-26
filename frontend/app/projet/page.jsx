@@ -35,7 +35,12 @@ export default function Projet() {
     }, []);
 
     const handleCreateProject = (data) => {
-        console.log(data);
+        const newProject = data?.data?.project;
+
+        if (newProject) {
+            setProjects((prevProjects) => [...prevProjects, newProject]);
+        }
+
         setModalOpen(false);
     };
 

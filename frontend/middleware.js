@@ -16,5 +16,6 @@ export const config = {
     matcher: [
         "/compte/:path*",
         "/projet/:path*",
+        "/dashboard/:path*",
     ],
 };

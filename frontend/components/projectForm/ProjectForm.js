@@ -6,7 +6,7 @@ import styles from "./ProjectForm.module.css";
 import UserSelector from "../autocompletion/autocompletion.js"
 import { createProject } from "@/services/projectServices";
 
-export default function ProjectForm() {
+export default function ProjectForm({ onSubmit }) {
 
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
@@ -24,8 +24,19 @@ export default function ProjectForm() {
             const contributorEmails = contributors.map(
                 (contributor) => contributor.email
             );
-            await createProject(name, description, contributorEmails);
-             setSuccessMessage("Projet crée avec succès !");
+
+            const data = await createProject(name, description, contributorEmails);
+
+            setSuccessMessage("Projet crée avec succès !");
+
+            if (onSubmit) {
+                onSubmit(data);
+            }
+
+            setName("");
+            setDescription("");
+            setContributors([]);
+
         } catch (error) {
             console.error(error.message);
             setErrorMessage(error.message);

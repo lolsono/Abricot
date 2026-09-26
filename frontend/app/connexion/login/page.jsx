@@ -29,7 +29,7 @@ export default function Connexion() {
 
             await login(email, password);
             await refreshUser();
-            router.push("/compte");
+            router.push("/dashboard");
 
         } catch (error) {
             console.error(error.message);

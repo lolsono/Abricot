@@ -28,7 +28,7 @@ export default function SignUp() {
         try {
             await signUpServices(name, email, password);
             await refreshUser();
-            router.push("/compte");
+            router.push("/dashboard");
 
         } catch (error) {
             console.error(error.message);

@@ -1,0 +1,197 @@
+.card {
+    box-sizing: border-box;
+    background: #ffffff;
+    border: 1px solid #e7e8eb;
+    border-radius: 8px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card:hover {
+    border-color: #dcdde0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.025);
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+.titleRow {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.title {
+    margin: 0;
+    color: #202124;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.description {
+    margin: 0;
+    color: #9a9da3;
+    font-size: 10px;
+    line-height: 1.4;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    margin-top: 4px;
+}
+
+.metaItem {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    color: #9a9da3;
+    font-size: 9px;
+}
+
+.metaIcon {
+    width: 11px;
+    height: 11px;
+    color: #b3b5ba;
+    flex-shrink: 0;
+}
+
+.metaIconImg {
+    opacity: 0.6;
+    flex-shrink: 0;
+}
+
+.statusBadge {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+
+    padding: 3px 8px;
+    border-radius: 10px;
+
+    font-size: 8px;
+    font-weight: 500;
+    line-height: 1;
+}
+
+.statusTODO {
+    background: #fff0ee;
+    color: #e05b50;
+}
+
+.statusIN_PROGRESS {
+    background: #fff5df;
+    color: #d99315;
+}
+
+.statusDONE {
+    background: #e8f8ef;
+    color: #28a565;
+}
+
+.viewButton {
+    height: 28px;
+    padding: 0 16px;
+
+    border: none;
+    border-radius: 6px;
+
+    background: #202020;
+    color: #ffffff;
+
+    font-size: 10px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+}
+
+.viewButton:hover {
+    background: #303030;
+}
+
+/* =========================================================
+   VARIANTE KANBAN (verticale)
+========================================================= */
+
+.cardKanban {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    padding: 14px;
+}
+
+.cardKanban .side {
+    display: flex;
+}
+
+.cardKanban .viewButton {
+    width: 20%;
+}
+
+/* =========================================================
+   VARIANTE LISTE (horizontale)
+========================================================= */
+
+.cardList {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    padding: 14px 16px;
+}
+
+.cardList .content {
+    flex: 1;
+    min-width: 0;
+}
+
+.cardList .side {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+
+    flex-shrink: 0;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .cardList {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .cardList .side {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .cardList .viewButton {
+        flex: 1;
+    }
+}
