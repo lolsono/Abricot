@@ -1,188 +1,124 @@
 .container {
-    position: relative;
-
-    width: 100%;
-    height: 50vh;
-
-    box-sizing: border-box;
-
-    padding: 24px 46px 48px;
-
-    background: #ffffff;
-
-    color: #202124;
+    display: flex;
+    flex-direction: column;
+    max-height: min(560px, 65vh); /* la modale ne dépasse plus l'écran */
+    min-height: 0;
+    padding: 0; /* ton composant de modale a déjà son propre padding */
+    background: #fff;
 }
 
-
-/* =========================================================
-   TITRE
-========================================================= */
-
-.title {
+.header {
     display: flex;
     align-items: center;
-
-    gap: 8px;
-}
-
-.title h1 {
-    margin: 0;
-
-    font-size: 22px;
-    font-weight: 500;
-    line-height: 1.3;
-
-    color: #202124;
+    gap: 10px;
+    padding: 0 0 20px;
 }
 
 .sparkle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    color: #ff7935;
-
-    font-size: 20px;
+    font-size: 1.375rem;
     line-height: 1;
+    color: #ff8a3d;
 }
 
+.heading {
+    margin: 0;
+    font-size: 1.375rem; /* écrase le style global des h1 */
+    font-weight: 500;
+    line-height: 1.2;
+    color: #1f1f1f;
+}
 
-/* =========================================================
-   FORMULAIRE
-========================================================= */
+/* Zone centrale : c'est elle qui défile */
+.body {
+    flex: 1 1 auto;
+    min-height: 0;
+    padding: 0 6px 16px 0;
+    overflow-y: auto;
+}
 
-.form {
-    position: absolute;
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
 
-    left: 50%;
-    bottom: 48px;
+.status {
+    margin: 16px 0 0;
+    font-size: 0.875rem;
+    color: #6b7280;
+}
 
-    transform: translateX(-50%);
+.error {
+    margin: 16px 0 0;
+    font-size: 0.875rem;
+    color: #b91c1c;
+}
 
+.confirmRow {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: center;
+    padding: 8px 0 20px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.confirmButton {
+    padding: 12px 20px;
+    font-size: 0.875rem;
+    color: #fff;
+    background: #1f1f1f;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.confirmButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.footer {
+    flex: 0 0 auto;
+    padding: 20px 0 0;
+}
+
+.inputWrapper {
     display: flex;
     align-items: center;
-
-    width: min(455px, calc(100% - 30px));
-    height: 56px;
-
-    box-sizing: border-box;
-
-    padding: 5px 10px 5px 28px;
-
-    border-radius: 30px;
-
-    background: #f7f7f8;
+    gap: 12px;
+    padding: 6px 12px 6px 26px;
+    background: #f8f9fb;
+    border-radius: 999px;
 }
-
-
-/* =========================================================
-   INPUT
-========================================================= */
 
 .input {
     flex: 1;
-
-    width: 100%;
-
-    min-width: 0;
-
-    height: 100%;
-
-    padding: 0;
-
+    padding: 12px 0;
+    font-size: 0.8125rem;
+    color: #111;
+    background: transparent;
     border: none;
     outline: none;
-
-    background: transparent;
-
-    color: #202124;
-
-    font-size: 10px;
 }
 
-.input::placeholder {
-    color: #202124;
-
-    opacity: 1;
-}
-
-
-/* =========================================================
-   BOUTON
-========================================================= */
-
-.submitButton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    flex-shrink: 0;
-
-    width: 22px;
-    height: 22px;
-
-    padding: 0;
-
+.sendButton {
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    font-size: 0.75rem;
+    line-height: 1;
+    color: #fff;
+    background: #d95d0f;
     border: none;
     border-radius: 50%;
-
-    background: #df5c08;
-
-    color: #ffffff;
-
-    font-size: 17px;
-    font-weight: 400;
-
-    line-height: 1;
-
     cursor: pointer;
-
-    transition:
-        background-color 0.15s ease,
-        transform 0.15s ease;
 }
 
-.submitButton:hover {
-    background: #c95005;
-}
-
-.submitButton:active {
-    transform: scale(0.92);
-}
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media (max-width: 700px) {
-
-    .container {
-        height: 50dvh;
-
-        padding: 24px 20px 30px;
-    }
-
-    .title h1 {
-        font-size: 20px;
-    }
-
-    .sparkle {
-        font-size: 18px;
-    }
-
-    .form {
-        bottom: 30px;
-
-        width: calc(100% - 40px);
-
-        height: 56px;
-
-        padding-left: 22px;
-        padding-right: 10px;
-    }
-
-    .input {
-        font-size: 10px;
-    }
+.sendButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }

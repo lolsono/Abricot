@@ -98,9 +98,13 @@ export default function TasksPage() {
         setModalOpen(false);
     };
 
-    const handleCreateTaskIA = (data) => {
-        console.log(data);
-        setModalOpenModif(false);
+    /* Reçoit les réponses de l'API pour chaque tâche créée par l'IA */
+    const handleCreateTaskIA = (createdResponses) => {
+        const newTasks = createdResponses
+            .map((response) => response?.data?.task)
+            .filter(Boolean);
+
+        setTasks((prevTasks) => [...prevTasks, ...newTasks]);
     };
 
     /* Remplace la tâche modifiée dans la liste, pour rafraîchir l'affichage de sa card */
@@ -151,7 +155,11 @@ export default function TasksPage() {
                 onClose={() => setModalOpenIA(false)}
                 title="IA Créer une tâche"
             >
-                <TasksFormIA />
+                <TasksFormIA
+                    projectId={project?.id}
+                    onCreated={handleCreateTaskIA}
+                    onClose={() => setModalOpenIA(false)}
+                />
             </Modal>
 
             <header className={styles.projectHeader}>
